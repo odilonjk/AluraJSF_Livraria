@@ -9,9 +9,19 @@
 	<h:head />
 	<h:body>
 		<div id="cabecalho">
-			<h:graphicImage library="img" name="logo.png" />
 		    <p:growl id="messages" showDetail="true" autoUpdate="true"/>
-			
+
+			<h:panelGrid columns="2">
+				<h:graphicImage library="img" name="logo.png" />
+				<h:form rendered="#{usuarioLogado != null}">		    
+		            <p:themeSwitcher id="basic" style="position: absolute; right: 10px; width:165px" value="#{temaBean.tema}">
+			            <f:selectItem itemLabel="Choose Theme" itemValue="" />
+			            <f:selectItems value="#{temaBean.temas}" var="tema" itemLabel="#{tema}" itemValue="#{tema}" />
+			            <f:ajax/>
+			        </p:themeSwitcher>
+		        </h:form>
+	        </h:panelGrid>
+ 
 			<h:form rendered="#{usuarioLogado != null}">
 			    <p:menubar>
 				    <p:submenu label="Cadastros" icon="ui-icon-document">
