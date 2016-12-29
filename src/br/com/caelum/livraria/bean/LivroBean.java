@@ -2,6 +2,8 @@ package br.com.caelum.livraria.bean;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -9,10 +11,12 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
+import javax.swing.SortOrder;
 
 import br.com.caelum.livraria.dao.DAO;
 import br.com.caelum.livraria.modelo.Autor;
 import br.com.caelum.livraria.modelo.Livro;
+import br.com.caelum.livraria.modelo.LivroDataModel;
 
 @ManagedBean
 @ViewScoped
@@ -25,6 +29,10 @@ public class LivroBean implements Serializable {
 	private Integer autorId;
 
 	private Integer livroId;
+
+	private List<Livro> livros;
+	
+	private LivroDataModel livroDataModel = new LivroDataModel();
 
 	public void setAutorId(Integer autorId) {
 		this.autorId = autorId;
@@ -47,7 +55,9 @@ public class LivroBean implements Serializable {
 	}
 
 	public List<Livro> getLivros() {
-		return new DAO<Livro>(Livro.class).listaTodos();
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		if(this.livros == null) this.livros = dao.listaTodos();
+		return livros;
 	}
 
 	public List<Autor> getAutores() {
@@ -73,10 +83,13 @@ public class LivroBean implements Serializable {
 			return;
 		}
 
+		DAO<Livro> dao = new DAO<Livro>(Livro.class);
+		
 		if (this.livro.getId() == null) {
-			new DAO<Livro>(Livro.class).adiciona(this.livro);
+			dao.adiciona(this.livro);
+			this.livros = dao.listaTodos();
 		} else {
-			new DAO<Livro>(Livro.class).atualiza(this.livro);
+			dao.atualiza(this.livro);
 		}
 
 		this.livro = new Livro();
@@ -116,4 +129,38 @@ public class LivroBean implements Serializable {
 		this.livro = new DAO<Livro>(Livro.class).buscaPorId(livroId);
 	}
 
+	public boolean filtrarPreco(Object valorColuna, Object valorFiltro, Locale locale) {
+		
+		String textoDigitado = (valorFiltro == null) ? null : valorFiltro.toString().trim();
+
+        System.out.println("Filtrando pelo " + textoDigitado + ", Valor do elemento: " + valorColuna);
+
+        if (textoDigitado == null || textoDigitado.equals("")) {
+            return true;
+        }
+
+        if (valorColuna == null) {
+            return false;
+        }
+
+        try {
+            Double precoDigitado = Double.valueOf(textoDigitado);
+            Double precoColuna = (Double) valorColuna;
+
+            return precoColuna.compareTo(precoDigitado) < 0;
+
+        } catch (NumberFormatException e) {
+            return false;
+        }
+		
+	}
+
+	public LivroDataModel getLivroDataModel() {
+		return livroDataModel;
+	}
+
+	public void setLivroDataModel(LivroDataModel livroDataModel) {
+		this.livroDataModel = livroDataModel;
+	}
+	
 }

@@ -18,6 +18,7 @@ public class UsuarioDAO {
 		query.setParameter("pSenha", usuario.getSenha());
 		
 		try{
+			@SuppressWarnings("unused")
 			Usuario resultado = query.getSingleResult();
 		} catch (NoResultException e) {
 			return false;
