@@ -1,12 +1,15 @@
 package br.com.caelum.livraria.tema;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import java.io.Serializable;
 
-@ManagedBean
-@SessionScoped
-public class temaBean {
+import javax.faces.view.ViewScoped;
+import javax.inject.Named;
 
+@Named
+@ViewScoped
+public class TemaBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private String tema = "afterdark";
 
 	public String getTema() {
