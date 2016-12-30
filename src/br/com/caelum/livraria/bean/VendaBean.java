@@ -10,7 +10,7 @@ import javax.inject.Named;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 
-import br.com.caelum.livraria.dao.DAO;
+import br.com.caelum.livraria.dao.LivroDAO;
 import br.com.caelum.livraria.modelo.Livro;
 import br.com.caelum.livraria.modelo.Venda;
 
@@ -19,6 +19,8 @@ import br.com.caelum.livraria.modelo.Venda;
 public class VendaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private LivroDAO dao;
 
 	public BarChartModel getVendasModel() {
 	    BarChartModel model = new BarChartModel();
@@ -50,7 +52,7 @@ public class VendaBean implements Serializable {
 	
 	public List<Venda> getVendas() {
 		
-		List<Livro> livros = new DAO<Livro>(Livro.class).listaTodos();
+		List<Livro> livros = this.dao.listaTodos();
 		List<Venda> vendas = new ArrayList<Venda>();
 
 		Random random = new Random();
