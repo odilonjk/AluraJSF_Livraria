@@ -32,7 +32,8 @@ public class LivroBean implements Serializable {
 
 	private List<Livro> livros;
 	
-	private LivroDataModel livroDataModel = new LivroDataModel();
+	@Inject
+	private LivroDataModel livroDataModel;
 	
 	@Inject
 	private LivroDAO dao;
