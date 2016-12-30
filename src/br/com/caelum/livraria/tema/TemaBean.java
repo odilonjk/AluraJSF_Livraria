@@ -2,11 +2,11 @@ package br.com.caelum.livraria.tema;
 
 import java.io.Serializable;
 
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
 @Named
-@ViewScoped
+@SessionScoped
 public class TemaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
