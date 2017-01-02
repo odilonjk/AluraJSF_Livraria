@@ -9,6 +9,7 @@ import javax.inject.Named;
 
 import br.com.caelum.livraria.dao.AutorDAO;
 import br.com.caelum.livraria.modelo.Autor;
+import br.com.caelum.livraria.tx.Transactional;
 
 @Named
 @ViewScoped
@@ -31,6 +32,7 @@ public class AutorBean implements Serializable {
 		return this.dao.listaTodos();
 	}
 
+	@Transactional
 	public String gravar() {
 		System.out.println("Gravando autor " + this.autor.getNome());
 
@@ -50,6 +52,7 @@ public class AutorBean implements Serializable {
 		this.autor = autor;
 	}
 
+	@Transactional
 	public void remover(Autor autor) {
 		System.out.println("Removendo autor");
 		this.dao.remove(autor);

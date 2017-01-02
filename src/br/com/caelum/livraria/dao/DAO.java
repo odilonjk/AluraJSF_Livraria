@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
 
+import br.com.caelum.livraria.modelo.Venda;
+
 public class DAO<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -18,32 +20,16 @@ public class DAO<T> implements Serializable {
 	}
 
 	public void adiciona(T t) {
-		
-		// abre transacao
-		em.getTransaction().begin();
-
 		// persiste o objeto
 		em.persist(t);
-
-		// commita a transacao
-		em.getTransaction().commit();
-
 	}
 
 	public void remove(T t) {
-		em.getTransaction().begin();
-
 		em.remove(em.merge(t));
-
-		em.getTransaction().commit();
 	}
 
 	public void atualiza(T t) {
-		em.getTransaction().begin();
-
 		em.merge(t);
-
-		em.getTransaction().commit();
 	}
 
 	public List<T> listaTodos() {
@@ -81,6 +67,13 @@ public class DAO<T> implements Serializable {
 		long result = (Long) em.createQuery("select count(n) from " + classe.getSimpleName() + " n")
 				.getSingleResult();
 		return (int) result;
+	}
+	
+	public List<Venda> getVendas() {
+		
+		List<Venda> list = em.createQuery("select v from Venda v", Venda.class).getResultList();
+		
+		return list;
 	}
 	
 }

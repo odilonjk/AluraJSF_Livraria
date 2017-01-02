@@ -48,28 +48,29 @@
 					</h:panelGrid>
 
 				</p:fieldset>
-	
-				<p:fieldset legend="Dados do Autor">
-					
-					<p:panelGrid columns="4">
-						<p:outputLabel value="Selecione Autor:" for="autor" />
-						<p:selectOneMenu value="#{livroBean.autorId}" id="autor">
-							<f:selectItems value="#{livroBean.autores}" var="autor"
-								itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
-						</p:selectOneMenu>
-						<p:commandButton value="Gravar Autor" action="#{livroBean.gravarAutor}" 
-								process="@this autor" update="tabelaAutores"/>
-		
-						<p:commandLink value="ou cadastrar novo autor"
-							action="#{livroBean.formAutor}" immediate="true" update="@all"/>
-					</p:panelGrid>
-					<p:dataList value="#{livroBean.autoresDoLivro}" var="autor" id="tabelaAutores"
-									emptyMessage="Nenhum autor selecionado." type="definition">
-						<p:outputLabel value="#{autor.nome}" style="margin-left: 10px"/>
-						<p:commandButton icon="fa fa-fw fa-remove" action="#{livroBean.removerAutorDoLivro(autor)}" 
-								update="tabelaAutores" process="@this" style="margin-left: 10px"/>
-					</p:dataList>
-				</p:fieldset>
+				<div style="margin-top: 10px">
+					<p:fieldset legend="Dados do Autor">
+						
+						<p:panelGrid columns="4">
+							<p:outputLabel value="Selecione Autor:" for="autor" />
+							<p:selectOneMenu value="#{livroBean.autorId}" id="autor">
+								<f:selectItems value="#{livroBean.autores}" var="autor"
+									itemLabel="#{autor.nome}" itemValue="#{autor.id}" />
+							</p:selectOneMenu>
+							<p:commandButton value="Gravar Autor" action="#{livroBean.gravarAutor}" 
+									process="@this autor" update="tabelaAutores"/>
+			
+							<p:commandLink value="ou cadastrar novo autor"
+								action="#{livroBean.formAutor}" immediate="true" update="@all"/>
+						</p:panelGrid>
+						<p:dataList value="#{livroBean.autoresDoLivro}" var="autor" id="tabelaAutores"
+										emptyMessage="Nenhum autor selecionado." type="definition">
+							<p:outputLabel value="#{autor.nome}" style="margin-left: 10px"/>
+							<p:commandButton icon="fa fa-fw fa-remove" action="#{livroBean.removerAutorDoLivro(autor)}" 
+									update="tabelaAutores" process="@this" style="margin-left: 10px"/>
+						</p:dataList>
+					</p:fieldset>
+				</div>
 				<p:commandButton value="Gravar" action="#{livroBean.gravar}" 
 							process="@form" update="@form :formTabelaLivros:tabelaLivros"/>
 			</h:form>

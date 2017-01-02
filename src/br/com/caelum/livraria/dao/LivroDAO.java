@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import br.com.caelum.livraria.log.Log;
 import br.com.caelum.livraria.modelo.Livro;
 
 public class LivroDAO implements Serializable {
@@ -23,6 +24,7 @@ public class LivroDAO implements Serializable {
 		this.dao = new DAO<Livro>(this.em, Livro.class);
 	}
 	
+	@Log
 	public List<Livro> listaTodos() {
 		return this.dao.listaTodos();
 	}

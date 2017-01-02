@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import br.com.caelum.livraria.log.Log;
 import br.com.caelum.livraria.modelo.Autor;
 
 public class AutorDAO implements Serializable {
@@ -39,6 +40,7 @@ public class AutorDAO implements Serializable {
 		return this.dao.buscaPorId(autorId);
 	}
 
+	@Log
 	public List<Autor> listaTodos() {
 		return this.dao.listaTodos();
 	}
